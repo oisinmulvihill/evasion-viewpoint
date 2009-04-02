@@ -14,11 +14,10 @@
 	<div id="header-pickout">&nbsp;</div>
 
   <script type="text/javascript">
-
-    var updateProgress = function(bar, amount) {
-        alert("fake updateProgress: bar '"+bar+"' amount'"+amount+"'.");
-    };
-
+    // Used to test the remote command invoke:
+    var evasion_testcall = function(args) { 
+		alert("evasion_testcall(args): called with '" + args + "'.");
+	};
   </script>
 
 	<div id="main">
