@@ -1,0 +1,193 @@
+/* Project wide style sheet (c) Oisin Mulvihill, all rights reserved. */
+/* reset */
+* {margin:0; padding:0; color:white; font-family:Verdana, Arial, sans-serif; font-size:12px; line-height:1.4em;}
+a, span, strong {font-size:1em;}
+span {color:inherit;}
+img {border:none;}
+body{}
+input  {color: black;}
+h1, h2, h3, p {margin-bottom:10px;}
+h1, h2, h3
+h1 span, h2 span, h3 span {}
+h1 {font-size:1.2em;}
+h2 {font-size:1.0em;}
+h3 {font-size:1em;}
+p {padding:0 10px 0 0;}
+a, a:visited {text-decoration:none;}
+a:hover, a.current {text-decoration:underline;}
+
+
+/* items outside of central block - general fancy pancy effects */
+#header-pickout {
+    position: absolute;
+    top: 0px;
+    float: left;
+    height: 192px;
+    width: 100%;
+
+    background-color: black;
+    background-image: url('chrome://viewpoint/content/images/header-back.png');
+    background-repeat: repeat-x;
+}
+
+
+/* Create the centered 'central' content block in the browser*/
+div#main {
+  /* fixed block:*/
+  width: 950px;
+}
+
+body {
+    text-align: center;
+    background-color: black;
+}
+
+div#main {
+  width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+/* Now layout the main parts of the centered block: header, content and footer. */
+#logo {
+    display:block; 
+    position:absolute; 
+    overflow:hidden; 
+    left:0px; 
+    top:0px; 
+    width:950px; 
+    height:190px;
+/*
+*/
+}
+
+#content, #footer {
+    width: 100%;
+    margin-top: 30px;
+    padding: 4px 6px 6px 4px;
+    background-color: black;
+}
+
+#header {
+    position:relative; 
+}
+
+
+#footer {
+    float: left;
+    clear: both;
+    width: 100%;
+}
+
+#footer #footer-content {
+    float: left;
+    width: 100%;
+}
+
+#footer #site-details {
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    font-size: xx-small;
+    font-style: italic;
+    text-align: center;
+    color: #4e4e4e;
+}
+
+#content {
+    padding: 2px;
+}
+
+ul#main-menu {
+    position:absolute; 
+    right:5px; 
+    top:160px;
+}
+ul#main-menu li {
+    float:left; 
+    list-style:none; 
+    text-align:center;
+    width: 90px;
+    height: 20px;
+/*    background: url('chrome://viewpoint/content/images/tab_inactive1.png') no-repeat;*/
+    margin-left: 2px;
+}
+ul#main-menu li a, ul#main-menu li a:visited {
+    line-height: 18px;
+    padding:10px; 
+    color:#696a68;
+    font-weight: bold;
+    text-decoration:none;
+}
+ul#main-menu li a:hover, ul#main-menu li a.current {
+    color:#9c2222; 
+    text-decoration:underline;
+}
+
+
+/* repeated styles */
+.block {
+    padding: 4px;
+    border: 1px dotted #151e43;
+
+/*
+    border: 1px dotted #151e43;
+    border: 2px solid #050e33;
+    border: 2px solid #151e33;
+    border: 2px solid #000530;
+*/
+    background: black url('chrome://viewpoint/content/images/back2.png');
+}
+
+.block-shadow { 
+    height: 20px;
+    width: 100%;
+}
+
+.title {
+  font-size: large;
+   margin: 2px 4px 0px 4px;
+   border-bottom: 1px solid #30a085;
+}
+
+.clear {clear:both;}
+.bottom-border {}
+.strong {font-weight:bold;}
+.back {margin-top:20px;}
+.back a {color:#9c2222;}
+.col-l, .col-r {float:left; width:50%;}
+.col-l h2, .col-r h2 {font-weight:normal;}
+
+.error {
+    margin-left: 4px;
+    color: red;
+    font-weight: bold;
+}
+
+textarea, select, option {
+    color: black;
+}
+
+#siterootcontainer
+{
+  width: 100%;
+}
+
+#siteroot 
+{
+  height: 100px;
+  text-align: center;
+  float: left;
+  width: 50%;
+  padding: 0px;
+  margin-top: 20px;
+  margin-left: 25%;
+}
+
+#siteroot >div {
+   margin: 10px;
+}
+
+

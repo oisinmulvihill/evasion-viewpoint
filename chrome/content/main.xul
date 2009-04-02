@@ -30,7 +30,7 @@
     </div>
   </hbox>
 
-  <browser flex="1" id="browser" src="" type="content-primary"/>
+  <browser flex="1" id="browser" src="chrome://viewpoint/content/static/startup.html" type="content-primary"/>
 
   <statusbar id="development_status">
     <statusbarpanel id="status" label="" crop="end" flex="1"/>
