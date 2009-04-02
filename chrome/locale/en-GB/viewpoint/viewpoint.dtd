@@ -1,0 +1,7 @@
+<!ENTITY viewpoint.title   "Evasion Viewpoint">
+<!ENTITY viewpoint.back    "Back">
+<!ENTITY viewpoint.forward "Forward">
+<!ENTITY viewpoint.reload  "Reload">
+<!ENTITY viewpoint.stop    "Stop">
+<!ENTITY viewpoint.go      "Go">
+<!ENTITY viewpoint.console "Console">

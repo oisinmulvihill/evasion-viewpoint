@@ -1,0 +1,6 @@
+content viewpoint file:content/
+locale viewpoint en-GB file:locale/en-GB/viewpoint/
+
+# form jar files example:
+#content mybrowser jar:mybrowser.jar!/content/mybrowser/
+#locale mybrowser en-US jar:en-US.jar!/locale/en-US/mybrowser/

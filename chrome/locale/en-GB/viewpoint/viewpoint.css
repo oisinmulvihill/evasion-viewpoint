@@ -1,0 +1,24 @@
+.visible 
+{
+  display: block;
+}
+
+#development_bar
+{
+  width: 100%;
+}
+#development_bar textbox
+{
+  float: left;
+  width: 60%;
+}
+#development_bar #dev_buttons
+{
+  float: right;
+  width: 36%;
+}
+
+.hidden
+{
+  display: None;
+}

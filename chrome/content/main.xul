@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viewpoint/locale/viewpoint.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://viewpoint/locale/viewpoint.dtd">
+
+<window
+  id = "evasion_viewpoint"
+  width = "1024"
+  height = "768"
+  xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <!-- 
+  sizemode = "maximized"
+  -->
+
+  // Mochikit must be included before the projects js files.
+  <script src="MochiKit.js"/>
+  <script src="logging.js"/>
+  <script src="outbandcontrol.js"/>
+  <script src="xulcontrolhandler.js"/>
+  <script src="main.js"/>
+
+  <!-- This is displayed if its turned on in the "pref.js" file. -->
+  <hbox id="development_bar">
+    <textbox id="urlbar" value=""/>
+    <div id="dev_buttons">
+      <button id="go" label="&viewpoint.go;" oncommand="go();"/>
+      <button id="reload" label="&viewpoint.reload;" oncommand="reload();"/>
+      <button id="stop" label="&viewpoint.stop;" oncommand="stop();" />
+    </div>
+  </hbox>
+
+  <browser flex="1" id="browser" src="" type="content-primary"/>
+
+  <statusbar id="development_status">
+    <statusbarpanel id="status" label="" crop="end" flex="1"/>
+    <progressmeter id="progress" mode="determined" value="0%" style="display: none"/>
+    <statusbarpanel id="security" label="" style="display: none"/>
+  </statusbar>
+
+</window>
