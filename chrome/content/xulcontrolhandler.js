@@ -32,6 +32,10 @@ xch.process = function(command, args)
 	    return xch.setBrowserUri(args['uri']);
 	    break;
 
+        case "call":
+	    return xch.callFunction(args);
+	    break;
+
         case "get_uri":
 	    return xch.getBrowserUri();
 	    break;
@@ -54,7 +58,7 @@ xch.process = function(command, args)
 // Return the version of this code. This will help when checking what functionality is available across versions.
 xch.version = function()
 {
-    return "XUL Control Protocol v1.0.0 2007-08-09";
+    return "Evasion XUL Control Protocol v1.0.0 2008-12-23";
 };
 
 
@@ -103,6 +107,30 @@ xch.setBrowserUri = function(uri)
   }
 
   return uri;
+};
+
+
+// Call a javascript function inside the browser and return what it doesn.
+xch.callFunction = function(args)
+{
+    var returned = 'fail';
+
+    log.info("call: args " + args + ".");
+
+    var browser = document.getElementById("browser");
+
+    try {
+      var cmd = "javascript: "+args['call']+";";
+      log.info("call: executing '"+cmd+"'.");
+      browser.contentDocument.location = cmd;
+      returned = "ok";
+    }
+    catch(e) {
+      log.info("call: fail: "+e);
+      returned = "fail: "+e;
+    }
+
+    return returned;
 };
 
  

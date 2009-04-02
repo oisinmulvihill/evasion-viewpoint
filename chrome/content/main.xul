@@ -12,6 +12,7 @@
   <!-- 
   sizemode = "maximized"
   -->
+  <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
 
   // Mochikit must be included before the projects js files.
   <script src="MochiKit.js"/>
