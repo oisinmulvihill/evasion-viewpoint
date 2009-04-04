@@ -120,7 +120,7 @@ xch.callFunction = function(args)
     var browser = document.getElementById("browser");
 
     try {
-      var cmd = "javascript: "+args['call']+";";
+      var cmd = "javascript: "+args['call'];
       log.info("call: executing '"+cmd+"'.");
       browser.contentDocument.location = cmd;
       returned = "ok";
