@@ -26,6 +26,7 @@ needed = [
 ]
 
 EagerResources = [
+    'app'
 ]
 
 ProjectScripts = [
@@ -48,8 +49,8 @@ setup(
     test_suite=TestSuite,
     scripts=ProjectScripts,
     install_requires=needed,
-    packages=find_packages('lib'),
+    packages=find_packages('app'),
     package_data=PackageData,
-    package_dir = {'': 'lib'},
+    package_dir = {'': 'app'},
     eager_resources = EagerResources,
 )
