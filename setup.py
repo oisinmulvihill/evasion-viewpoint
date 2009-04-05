@@ -26,7 +26,7 @@ needed = [
 ]
 
 EagerResources = [
-    'app'
+    'lib/viewpoint'
 ]
 
 ProjectScripts = [
@@ -49,8 +49,8 @@ setup(
     test_suite=TestSuite,
     scripts=ProjectScripts,
     install_requires=needed,
-    packages=find_packages('app'),
+    packages=find_packages('lib'),
     package_data=PackageData,
-    package_dir = {'': 'app'},
+    package_dir = {'': 'lib'},
     eager_resources = EagerResources,
 )
