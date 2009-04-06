@@ -40,6 +40,7 @@ PackageData = {
 setup(
 #    url=ProjecUrl,
     name=Name,
+    zip_safe=False,
     version=Version,
     author=Author,
     author_email=AuthorEmail,
