@@ -17,20 +17,6 @@ a, a:visited {text-decoration:none;}
 a:hover, a.current {text-decoration:underline;}
 
 
-/* items outside of central block - general fancy pancy effects */
-#header-pickout {
-    position: absolute;
-    top: 0px;
-    float: left;
-    height: 192px;
-    width: 100%;
-
-    background-color: black;
-    background-image: url('chrome://viewpoint/content/images/header-back.png');
-    background-repeat: repeat-x;
-}
-
-
 /* Create the centered 'central' content block in the browser*/
 div#main {
   /* fixed block:*/
@@ -69,10 +55,6 @@ div#main {
     background-color: black;
 }
 
-#header {
-    position:relative; 
-}
-
 
 #footer {
     float: left;
@@ -98,32 +80,6 @@ div#main {
 
 #content {
     padding: 2px;
-}
-
-ul#main-menu {
-    position:absolute; 
-    right:5px; 
-    top:160px;
-}
-ul#main-menu li {
-    float:left; 
-    list-style:none; 
-    text-align:center;
-    width: 90px;
-    height: 20px;
-/*    background: url('chrome://viewpoint/content/images/tab_inactive1.png') no-repeat;*/
-    margin-left: 2px;
-}
-ul#main-menu li a, ul#main-menu li a:visited {
-    line-height: 18px;
-    padding:10px; 
-    color:#696a68;
-    font-weight: bold;
-    text-decoration:none;
-}
-ul#main-menu li a:hover, ul#main-menu li a.current {
-    color:#9c2222; 
-    text-decoration:underline;
 }
 
 
