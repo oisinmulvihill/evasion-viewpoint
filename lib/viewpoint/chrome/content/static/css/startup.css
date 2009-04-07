@@ -1,6 +1,6 @@
 /* Project wide style sheet (c) Oisin Mulvihill, all rights reserved. */
 /* reset */
-* {margin:0; padding:0; color:white; font-family:Verdana, Arial, sans-serif; font-size:12px; line-height:1.4em;}
+* {margin:0; padding:0; color:white; font-family:Verdana, Arial, sans-serif; font-size:20px; line-height:1.4em;}
 a, span, strong {font-size:1em;}
 span {color:inherit;}
 img {border:none;}
@@ -103,7 +103,6 @@ div#main {
 }
 
 .title {
-  font-size: large;
    margin: 2px 4px 0px 4px;
    border-bottom: 1px solid #30a085;
 }
