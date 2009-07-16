@@ -10,17 +10,15 @@
   sizemode = "maximized"
   xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <!-- 
-  sizemode = "maximized"
-  -->
-  <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
-
-  // Mochikit must be included before the projects js files.
+  <!-- Mochikit must be included before the projects js files. -->
   <script src="MochiKit.js"/>
   <script src="logging.js"/>
+  <script src="main.js"/>
+
+  <!-- this needs to come after main.js as it relies on browserListener
+      being set up and configured -->
   <script src="outbandcontrol.js"/>
   <script src="xulcontrolhandler.js"/>
-  <script src="main.js"/>
 
   <!-- This is displayed if its turned on in the "pref.js" file. -->
   <hbox id="development_bar">
@@ -32,7 +30,7 @@
     </div>
   </hbox>
 
-  <browser flex="1" id="browser" src="chrome://viewpoint/content/static/startup.html" type="content-primary"/>
+  <browser flex="1" id="content" src="" type="content-primary"/>
 
   <statusbar id="development_status">
     <statusbarpanel id="status" label="" crop="end" flex="1"/>
