@@ -5,8 +5,8 @@
 
 <window
   id = "evasion_viewpoint"
-  width = "1024"
-  height = "768"
+  minwidth = "1024"
+  minheight = "768"
   sizemode = "maximized"
   xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
