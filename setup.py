@@ -16,7 +16,7 @@ Author='Oisin Mulvihill'
 AuthorEmail='oisin dot mulvihill at gmail dot com'
 Maintainer=' Oisin Mulvihill'
 Summary='Internal module used in building of installers.'
-License='tbc'
+License='Evasion Project CDDL License'
 ShortDescription=Summary
 Description=Summary
 
