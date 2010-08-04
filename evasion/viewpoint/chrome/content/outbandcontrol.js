@@ -35,7 +35,7 @@ obc.inputReceived =
 {
     failure: function(message) 
     {
-	alert("InputError: "+messge);
+        alert("InputError: "+messge);
     },
 
 
@@ -59,32 +59,32 @@ obc.inputReceived =
     success: function(data) 
     {
         // The returned data format:
-	var rc = {'result':'ok', 'data':'', 'replyto':''};
+        var rc = {'result':'ok', 'data':'', 'replyto':''};
 
-	try 
-	{
-	    log.info("obc.inputReceived.success: calling user handler for \""+data+"\".");
+        try 
+        {
+            //log.info("obc.inputReceived.success: calling user handler for \""+data+"\".");
 
-	    // Recover the control frame:
-	    var data = evalJSON(data);
+            // Recover the control frame:
+            var data = evalJSON(data);
 
-	    log.info("replyto: " + data['replyto']);
-	    log.info("control_frame: " + data['data']);
-	    rc['data'] = obc.userReceivedHandler(data['data']);
+            //log.info("replyto: " + data['replyto']);
+            //log.info("control_frame: " + data['data']);
+            rc['data'] = obc.userReceivedHandler(data['data']);
+            
+            if (data['replyto'] != '')
+            {
+                rc['replyto'] = data['replyto'];
+            }
+        }
+        catch (e) 
+        {
+            log.info("obc.userReceivedHandler exception - " + e);
+            rc['result'] = 'error';
+            rc['data'] = e;
+        }
 
-	    if (data['replyto'] != '')
-	    {
-  	        rc['replyto'] = data['replyto'];
-	    }
-	}
-	catch (e) 
-	{
-	    log.info("obc.userReceivedHandler exception - " + e);
-	    rc['result'] = 'error';
-	    rc['data'] = e;
-	}
-
-	return rc;
+        return rc;
     }
 };
 
@@ -100,44 +100,44 @@ obc.dataRecover = {
     onStopRequest: function(request, context, status)
     {
         // The connection to us has been closed.
-	log.info("onDataAvailable: socket connection closed, goodbye.");
+        //log.info("onDataAvailable: socket connection closed, goodbye.");
 
-	// Finished receiving data, now hand this over to the end user:
+	    // Finished receiving data, now hand this over to the end user:
         obc.instream.close();
         obc.outstream.close();
     },
 
     onDataAvailable: function(request, context, inputStream, offset, count)
     {
-      // Note: the instream data needs to be receoverd now and
+      // Note: the instream data needs to be recoverd now and
       // not at a later stage., during a delayed whenReady callback.
       // I've discovered the instream gets closed by the time
       // that the whenReady func is called later.
       //
       var args = {
-	'data':obc.instream.read(count),
-	'outstream':obc.outstream,
-	'success':obc.inputReceived.success,
+        'data':obc.instream.read(count),
+        'outstream':obc.outstream,
+        'success':obc.inputReceived.success,
       };
       
       function whenReady(args)
       {
-	log.info("onDataAvailable.whenReady: start");
+        //log.info("onDataAvailable.whenReady: start");
 
-	// Data has been received, this will be a control frame.
-	// Process the frame and then return the response.
-	var data = args['data'];
+        // Data has been received, this will be a control frame.
+        // Process the frame and then return the response.
+        var data = args['data'];
 
-	log.info("onDataAvailable.whenReady: data so far - " + data);
-	var returned = args['success'](data);
+        //log.info("onDataAvailable.whenReady: data so far - " + data);
+        var returned = args['success'](data);
 
-	// Convert to JSON ready for transmission:
-	returned = serializeJSON(returned);
-	
-	log.info("onDataAvailable.whenReady: returning response - " + returned);
-	args['outstream'].write(returned, returned.length);
-	
-	log.info("onDataAvailable.whenReady: stop");
+        // Convert to JSON ready for transmission:
+        returned = serializeJSON(returned);
+        
+        //log.info("onDataAvailable.whenReady: returning response - " + returned);
+        args['outstream'].write(returned, returned.length);
+        
+        //log.info("onDataAvailable.whenReady: stop");
       }
 
       // Run the function now or at some point in the future
@@ -154,7 +154,7 @@ obc.acceptListener =
     {
 	try 
 	{
-	    log.info("Got a socket connection from: " + transport.host + ":" + transport.port);
+	    //log.info("Got a socket connection from: " + transport.host + ":" + transport.port);
 
 	    // Setup up communications from APP (Manger/Web)->XUL Browser.
 	    c = Components.classes["@mozilla.org/scriptableinputstream;1"];
@@ -172,7 +172,8 @@ obc.acceptListener =
 	    var pump = c.createInstance(Components.interfaces.nsIInputStreamPump);
 	    pump.init(stream, -1, -1, 0, 0, false);
 	    pump.asyncRead(obc.dataRecover, null);
-	    log.info("Set up async reader to handle incomming.");
+        
+	    //log.info("Set up async reader to handle incomming.");
 	} 
 	catch(ex2)
 	{ 
@@ -241,14 +242,14 @@ obc.start = function(port, input_handler)
 {
     if (input_handler)
     {
-	log.info("Adding user input handler.");
-	obc.userReceivedHandler = input_handler;
+        log.info("Adding user input handler.");
+        obc.userReceivedHandler = input_handler;
     }
     else
     {
-	log.info("NO User Handler Provided! One is requred.");
-	var msg = "A user handler must be provided!";
-	throw new Error(msg, msg);
+        log.info("NO User Handler Provided! One is requred.");
+        var msg = "A user handler must be provided!";
+        throw new Error(msg, msg);
     }
 
     obc.serverPort = port;
@@ -262,7 +263,7 @@ obc.stop = function()
 {
     if (obc.serverSocket) 
     {
-	try { obc.serverSocket.close(); } catch(e) {};
-	obc.serverSocket = 0;
+        try { obc.serverSocket.close(); } catch(e) {};
+        obc.serverSocket = 0;
     }
 };

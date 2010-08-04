@@ -8,7 +8,7 @@ var xch = {};
 xch.inputReceived = function(control_frame) 
 {
   // Handle the command:
-  log.info("inputReceived: control frame " + control_frame);
+  //log.info("inputReceived: control frame " + control_frame);
   return xch.process(control_frame['command'], control_frame['args']);
 };
 
@@ -16,7 +16,7 @@ xch.inputReceived = function(control_frame)
 // Perform the required command action and return the result:
 xch.process = function(command, args) 
 {
-    log.info("process: handling command call " + command);
+    //log.info("process: handling command call " + command);
 
     switch(command)
     {
@@ -77,7 +77,7 @@ xch.version = function()
 // Find the id and replace the content with that given:
 xch.replace = function(eid, content)
 {
-    log.info("replace: looking for element " + eid + " and replacing its content.");
+    //log.info("replace: looking for element " + eid + " and replacing its content.");
 
     // Get the browser and then search for the element inside the 
     // the loaded page. I don't want the user code getting the 
@@ -88,13 +88,13 @@ xch.replace = function(eid, content)
 
     if (ele)
     {
-	log.info("replace: found " + eid + " replacing its content.");
-	ele.innerHTML = unescape(content);
+        //log.info("replace: found " + eid + " replacing its content.");
+        ele.innerHTML = unescape(content);
     }
     else
     {
-	var msg = "replace: the element '" + eid + "' was not found!"
-	throw new Error(msg, msg);
+        var msg = "replace: the element '" + eid + "' was not found!"
+        throw new Error(msg, msg);
     }
 
     return 0;
@@ -106,9 +106,8 @@ xch.setBrowserUri = function(uri)
 {
   var browser = xch.getBrowser();
   var currenturi = xch.getBrowserUri();
-
   
-  log.info("setBrowserUri: change from " + currenturi + " to " + uri);
+  //log.info("setBrowserUri: change from " + currenturi + " to " + uri);
 
   if (uri)
   {
@@ -136,7 +135,7 @@ xch.getBrowserUri = function()
   var browser = xch.getBrowser();
 
   var uri = browser.currentURI.asciiSpec;
-  log.info("getBrowserUri: returning URI - " + uri);
+  //log.info("getBrowserUri: returning URI - " + uri);
 
   return uri
 };
@@ -147,13 +146,13 @@ xch.callFunction = function(args)
 {
     var returned = 'fail';
 
-    log.info("call: args " + args + ".");
+    //log.info("call: args " + args + ".");
 
     var browser = xch.getBrowser();
 
     try {
       var cmd = "javascript: "+args['call'];
-      log.info("call: executing '"+cmd+"'.");
+      //log.info("call: executing '"+cmd+"'.");
       browser.contentDocument.location = cmd;
       returned = "ok";
     }

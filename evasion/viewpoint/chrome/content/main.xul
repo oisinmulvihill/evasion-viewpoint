@@ -20,7 +20,7 @@
   <script src="outbandcontrol.js"/>
   <script src="xulcontrolhandler.js"/>
 
-  <!-- This is displayed if its turned on in the "pref.js" file. -->
+  <!-- This is displayed if its turned on in the "pref.js" file.  oncommand="statusbar_action();" -->
   <hbox id="development_bar">
     <textbox id="urlbar" value=""/>
     <div id="dev_buttons">
@@ -33,7 +33,7 @@
   <browser flex="1" id="content" src="" type="content-primary"/>
 
   <statusbar id="development_status">
-    <statusbarpanel id="status" label="" crop="end" flex="1"/>
+    <statusbarpanel id="status" label="" crop="end" flex="1" onclick="browser_viewmode.statusbar_action()"/>
     <progressmeter id="progress" mode="determined" value="0%" style="display: none"/>
     <statusbarpanel id="security" label="" style="display: none"/>
   </statusbar>

@@ -76,7 +76,7 @@ WebProgressListener.prototype = {
 	if (this._actionWhenReady)
 	{
 	  // Browser ready to handle any waiting command:
-	  log.info("onStateChange: calling when ready function.");
+	  //log.info("onStateChange: calling when ready function.");
 	  try 
 	  {
 	    this._actionWhenReady['func'](this._actionWhenReady['args']);
@@ -87,7 +87,7 @@ WebProgressListener.prototype = {
 	  }
 
 	  // clear for next callback:
-	  log.info("onStateChange: ready function called ok.");
+	  //log.info("onStateChange: ready function called ok.");
 	  this._actionWhenReady = null;
 	}
       }
@@ -105,14 +105,14 @@ WebProgressListener.prototype = {
     {
       // The browser is busy right now, store this function and data 
       // to be executed at a later stage.
-      log.info("executeWhenReady: browser busy, storing callback for later.");
+      log.info("executeWhenReady: browser busy, storing callback for later - ");
       this._actionWhenReady = {'func':ready, 'args':args};
     }
     else
     {
       // The browser isn't actually busy so run the function 
       // straight away.
-      log.info("executeWhenReady: browser not busy, running callback.");
+      //log.info("executeWhenReady: browser not busy, running callback.");
       ready(args);
     }
 
@@ -218,6 +218,91 @@ function stop()
 }
 
 
+// Admin or Normal view switching via 'knocking' on the status bar.
+//
+function ViewMode() {
+}
+
+ViewMode.prototype = {
+    // Default normal and admin via URIs:
+    normal_uri: 'http://127.0.0.1:9808',
+    admin_uri: 'http://127.0.0.1:28909',
+    admin_or_normal_view: 'normal',
+    
+    // Current tally of 'knocks' on the status bar.
+    statusbar_action_count: 0,
+    
+    // Used to work out if the knocking sequence occurs within 
+    // the RESPONSE_THRESHOLD.
+    knocking_start: null,
+    knocking_stop: null,
+    
+    // Time in seconds:
+    RESPONSE_THRESHOLD: 10 * 1000,
+    
+    statusbar_action: function ()
+    {
+        var go_to_uri = '';
+        var browser = document.getElementById("content");
+
+        if (this.knocking_start == null) {
+            this.knocking_start = new Date();
+        }
+
+        if (this.statusbar_action_count >= 6) {
+             // Reset the action counter:
+             this.statusbar_action_count = 0;
+
+            // Decide if knocking occured within the threashold. If not
+            // disregard as it was not deliberate.
+            this.knocking_stop = new Date();
+            var diff = this.knocking_stop.getTime() - this.knocking_start.getTime();
+            if (diff > this.RESPONSE_THRESHOLD) {
+                // Ignore and reset as the knocking did not occur fast enough
+                this.knocking_start = null;
+                this.knocking_stop = null;
+
+                log.info('Knocking sequence occurred to slowly diff: '+diff);
+
+                return
+            }
+            
+            // Decide whether to show the admin uri or the normal uri:
+            if (browser) {
+                var goto_uri = 'about:blank';
+                
+                if (this.admin_or_normal_view == 'normal') {
+                    // We're looking at the normal view, switch to the admin view.
+                    
+                    // Store the exact uri we were at so we can come 
+                    // back here on the next statusbar action:
+                    this.normal_uri = browser.currentURI.asciiSpec;
+                    goto_uri = this.admin_uri;
+                    this.admin_or_normal_view = 'admin';
+                    log.info('setting view to admin mode: '+goto_uri);
+                }
+                else {
+                    // We're looking at the admin view, switch to the normal view.
+                    goto_uri = this.normal_uri;
+                    this.admin_or_normal_view = 'normal';
+                    log.info('setting view to normal mode: '+goto_uri);
+                }
+                
+                browser.loadURI(goto_uri, null, null);
+            }
+            else {
+                alert("Unable to react to statusbar action!");
+            }
+        }
+        else {
+            this.statusbar_action_count += 1;
+        }
+    }
+};
+
+var browser_viewmode = new ViewMode();
+
+
 function initialise() 
 {
   log.info("Xulcontrol Init Begin");
@@ -238,6 +323,11 @@ function initialise()
   if (prefs.getPrefType("browser.startup.homepage") == prefs.PREF_STRING)
   {
     default_starturi = prefs.getCharPref("browser.startup.homepage");
+  }
+  var default_adminuri = 'http://127.0.0.1:28909/';
+  if (prefs.getPrefType("browser.adminuri") == prefs.PREF_STRING)
+  {
+    default_adminuri = prefs.getCharPref("browser.adminuri");
   }
   var default_nofullscreen = 'no';
   if (prefs.getPrefType("browser.nofullscreen") == prefs.PREF_STRING)
@@ -268,6 +358,7 @@ function initialise()
   var cmd_line = {
     'startport' : default_startport,
     'starturi' : default_starturi,
+    'adminuri' : default_adminuri,
     'nofullscreen' : default_nofullscreen,
     'development' : default_development,
     'width' : default_width,
@@ -289,10 +380,18 @@ function initialise()
 
     if (value != null)
     {
+      //log.info("i: " + i + " v:" + value);
       cmd_line[i] = value;
     }
   }
+
+  // Set the admin_uri read from command line/configuration/default.
+  //
+  browser_viewmode.normal_uri = cmd_line.starturi;
+  log.info("NormalURI: " + browser_viewmode.normal_uri);
   
+  browser_viewmode.admin_uri = cmd_line.adminuri;
+  log.info("AdminURI: " + browser_viewmode.admin_uri);
 
   // Display the development panel if its turned on in the
   // configuration. The development bar contains the url bar, 
@@ -376,18 +475,15 @@ function initialise()
       alert("XulControl Listener setup failure - "+e);
   }
 
-  // Recover our start page from the prefs.js. This will have been 
-  // updated by the appmanager to the correct uri of the running
-  // web presence. Once we've got it, go to it and 'start' the app. 
-  if (cmd_line.starturi != null)
+  // Set the initial URI based on the normal uri from the ViewMode instance:
+  if (browser_viewmode.normal_uri != null)
   {
-    log.info("Redirecting browser to: " + cmd_line.starturi);
     try {
-      log.info("Redirecting browser too: " + cmd_line.starturi);
-      go(cmd_line.starturi);
+      log.info("Redirecting browser too: " + browser_viewmode.normal_uri);
+      go(browser_viewmode.normal_uri);
     }
     catch (e) {
-      alert('start uri parse failure. ' + e);
+      alert('browser_viewmode.normal_uri parse failure. ' + e);
     }
   }
 

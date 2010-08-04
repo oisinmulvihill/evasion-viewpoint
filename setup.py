@@ -50,8 +50,8 @@ setup(
     test_suite=TestSuite,
     scripts=ProjectScripts,
     install_requires=needed,
-    packages=find_packages('lib'),
+    packages=find_packages(),
     package_data=PackageData,
-    package_dir = {'': 'lib'},
     eager_resources = EagerResources,
+    namespace_packages = ['evasion'],    
 )
